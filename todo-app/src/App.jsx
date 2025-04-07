@@ -1,35 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import TaskInput from './components/TaskInput'
+import TaskItem from './components/TaskItem'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Manages Task List
+  const [tasks, setTasks] = useState()
+  const savedTasks = localStorage.getItem('tasks')
+  return savedTasks = JSON.parse(savedTasks)
+};
+// Save tasks to local storage
+useEffect(() => {
+  localStorage.setItem['tasks']
+});
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+//Add Task
+const addTask = (text) => {
+  if (text( )=== '') return;
+  const newTask = {
+    id: Date.now(),
+    text: text,
+    completed: false
+  }
+  setTasks([newTask,tasks])
 }
 
-export default App
+//Toggle if task is completed
+const toggleComplete = (id) => {
+  const updatedList = tasks.map(task => {
+    if (task.id === taskID) {
+      return{
+        task,
+        completed: task.completed
+      
+      }
+    }
+    return task;
+  });
+  setTasks(updatedList)
+};
+
+//Delete Task
+const deleteTask = (id) => {
+  const updatedList = tasks.filter(task => task.id !== id);
+  setTasks(updatedList);
+};
+
+return (
+  <div className="App">
+    <h1>Todo App</h1>
+    <TaskInput addTask={addTask} />
+    <div className="task-list">
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          toggleComplete={toggleComplete}
+          deleteTask={deleteTask}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
