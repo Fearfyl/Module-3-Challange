@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import TaskInput from './components/TaskInput'
-import TaskItem from './components/TaskItem'
+import TaskInput from './components/TaskInput.jsx'
+import TaskItem from './components/TaskItem.jsx'
 import './App.css'
 
 function App() {
